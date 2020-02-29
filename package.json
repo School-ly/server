@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "REST API for Schoolly",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/School-ly/server.git"
+  },
+  "keywords": [
+    "api",
+    "rest",
+    "schoolly",
+    "schooly"
+  ],
+  "author": "Schoolly",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/School-ly/server/issues"
+  },
+  "homepage": "https://github.com/School-ly/server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
