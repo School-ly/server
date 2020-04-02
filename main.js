@@ -23,7 +23,7 @@ MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, (err
       configDir: "./greenlock.d",
   
       // contact for security and critical bug notices
-      maintainerEmail: "alex_tsvetanov_2002@abv.bg",
+      maintainerEmail: "nadezhda.tsacheva2003@gmail.com",
   
       // whether or not to run at cloudscale
       cluster: false
