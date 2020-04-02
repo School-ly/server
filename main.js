@@ -1,77 +1,54 @@
-const response =[
-    {
-        name: "Item 1",
-        description: "Description for Item 1"
-    },
-    {
-        name: "Item 2",
-        description: "Description for Item 2"
-    },
-    {
-        name: "Item 3",
-        description: "Description for Item 3"
-    },
-    {
-        name: "Item 4",
-        description: "Description for Item 4"
-    },
-    {
-        name: "Item 5",
-        description: "Description for Item 5"
-    },
-    {
-        name: "Item 6",
-        description: "Description for Item 6"
-    },
-    {
-        name: "Item 7",
-        description: "Description for Item 7"
-    },
-    {
-        name: "Item 8",
-        description: "Description for Item 8"
-    },
-    {
-        name: "Item 9",
-        description: "Description for Item 9"
-    },
-    {
-        name: "Item 10",
-        description: "Description for Item 10"
-    },
-    {
-        name: "Item 11",
-        description: "Description for Item 11"
-    },
-    {
-        name: "Item 12",
-        description: "Description for Item 12"
-    },
-    {
-        name: "Item 13",
-        description: "Description for Item 13"
-    },
-    {
-        name: "Item 14",
-        description: "Description for Item 14"
-    },
-    {
-        name: "Item 15",
-        description: "Description for Item 15"
-    },
-    {
-        name: "Item 16",
-        description: "Description for Item 16"
-    }
-];
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+const https = require('https');
+const http = require('http');
+
+const fs = require('fs');
 
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 80
+const path = require('path');
 
-app.get('/', (req, res) => {
-    console.log("request received")
-    res.send(response);
+var db;
+
+MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+  if (err) return console.log(err)
+  db = client.db('schoolly') // whatever your database name is
+
+  require("greenlock-express")
+  .init({
+      packageRoot: __dirname,
+      configDir: "./greenlock.d",
+  
+      // contact for security and critical bug notices
+      maintainerEmail: "alex_tsvetanov_2002@abv.bg",
+  
+      // whether or not to run at cloudscale
+      cluster: false
+  })
+  // Serves on 80 and 443
+  // Get's SSL certificates magically!
+  .serve(app);
+});
+
+app.get('/events/compact', (req, res) => {
+    db.collection('Events').find().toArray(function(err, results) {
+        res.send(JSON.stringify(results));
+        // send HTML file populated with quotes here
+    });
 })
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.get('/events/extended', (req, res) => {
+    db.collection('Events').find().toArray(function(err, results) {
+        res.send(JSON.stringify(results));
+        // send HTML file populated with quotes here
+    });
+})
+app.get('/events/:id', (req, res) => {
+    let id = ObjectId(req.params ['id']);
+    db.collection('Events').find({'_id': id}).toArray(function(err, results) {
+        res.send(JSON.stringify(results));
+        // send HTML file populated with quotes here
+    });
+})
