@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/School-ly/server#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "fs": "0.0.1-security",
     "greenlock-express": "^4.0.3",
     "http": "0.0.1-security",
